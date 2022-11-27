@@ -1,6 +1,6 @@
 import express from 'express';
 const app = express();
-const port = 3333;
+const port = 4001;
 
 app.get('/', (_, res) => {
   res.status(200).send();
