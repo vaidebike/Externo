@@ -1,7 +1,7 @@
 {
   "name": "externo",
   "version": "1.0.0",
-  "main": "dist/index.js",
+  "main": "dist/app.js",
   "scripts": {
     "prepare": "husky install",
     "build": "tsc",
