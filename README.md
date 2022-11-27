@@ -6,27 +6,37 @@
 
 - [Node.js](https://nodejs.org/en/)
 - [Yarn](https://yarnpkg.com/)
+- [nvm](https://github.com/nvm-sh/nvm)
 
 ### Getting Started
 
 Make sure to run these commands before starting the project:
 
+#### For a better development experience, run these commands:
+
 ```bash
+nvm install
 yarn install
+```
+
+### To start the project, run:
+
+```bash
+docker compose up
 ```
 
 ### Commiting
 
 This project follows the [Conventional Commits](https://www.conventionalcommits.org/en/v1.0.0/) specification.
 
-### Running the project
+### Updating modules
 
 ```bash
-yarn dev
+docker exec externo-api yarn
 ```
 
-### Running the tests
+### Running tests
 
 ```bash
-yarn test
+docker exec externo-api yarn test
 ```
