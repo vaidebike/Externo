@@ -8,4 +8,10 @@ app.get('/', (_, res) => {
   res.status(200).send();
 });
 
+app.get('/test', (_, res) => {
+  res.status(200).send({
+    message: 'Hello World',
+  });
+});
+
 app.listen(port, () => console.log(`Running on port ${port}`));
