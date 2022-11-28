@@ -7,6 +7,8 @@
 - [Node.js](https://nodejs.org/en/)
 - [Yarn](https://yarnpkg.com/)
 - [nvm](https://github.com/nvm-sh/nvm)
+- [Docker](https://www.docker.com/)
+- [Docker Compose](https://docs.docker.com/compose/)
 
 ### Getting Started
 
