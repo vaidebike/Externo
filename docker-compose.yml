@@ -3,7 +3,6 @@ version: '3.8'
 services:
   api:
     build: .
-    command: yarn dev
     container_name: externo-api
     volumes:
       - .:/usr/app/
