@@ -9,6 +9,10 @@
     "outDir": "dist",
     "baseUrl": ".",
     "paths": {
+      "@models/*": ["./src/models/*"],
+      "@mocks/*": ["./src/mocks/*"],
+      "@controllers/*": ["./src/controllers/*"],
+      "@views/*": ["./src/views/*"],
       "*": ["node_modules/*"]
     }
   },
