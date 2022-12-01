@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<testExecutions version="1">
-  <file path="/Users/owozsh/Developer/pm/Externo/src/tests/charge.test.ts">
-    <testCase name="createFakeCharge function should have all Charge properties" duration="1"/>
-    <testCase name="createFakeCharge function should have all Charge properties types correct" duration="1"/>
-  </file>
-</testExecutions>
