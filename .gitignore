@@ -108,4 +108,4 @@ test-report.xml
 
 # Misc
 .DS_Store
-._*
+._*sendgrid.env
