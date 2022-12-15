@@ -5,20 +5,18 @@ sgMail.setApiKey(process.env.SENDGRID_API_KEY);
 const SENDER = process.env.SENDGRID_SENDER_EMAIL;
 
 export type EmailTemplate = {
-  to: string;
-  subject: string;
-  text: string;
-  html: string;
+  email: string;
+  mensagem: string;
 };
 
-const sendEmail = async ({ to, subject, text, html }: EmailTemplate) => {
+const sendEmail = async ({ email, mensagem }: EmailTemplate) => {
   sgMail
     .send({
       from: SENDER,
-      to,
-      subject,
-      text,
-      html,
+      to: email,
+      subject: 'VaiDeBike',
+      text: mensagem,
+      html: `<p>${mensagem}</p>`,
     })
     .then((res) => res)
     .catch((err) => err);

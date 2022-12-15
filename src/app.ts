@@ -3,6 +3,7 @@ dotenv.config();
 
 import express from 'express';
 import emails from './routes/email';
+import payments from './routes/payment';
 
 const app = express();
 app.disable('x-powered-by');
@@ -15,6 +16,7 @@ app.get('/', (_, res) => {
 
 app.use(express.json());
 
-app.use('/emails', emails);
+app.use('/', emails);
+app.use('/', payments);
 
 app.listen(port, () => console.log(`Running on port ${port}`));

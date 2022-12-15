@@ -1,22 +1,25 @@
 import { RequestHandler } from 'express';
-import { EmailService, EmailTemplate } from '../services/email';
+import { v4 as uuid } from 'uuid';
+
+import { EmailService } from '../services/email';
+import { errors } from '../views/errors/error';
 
 export const sendEmail: RequestHandler = async (req, res) => {
-  console.log(req);
+  const { email, mensagem } = req.body;
 
-  const { to, subject, text, html } = req.body;
-
-  const msg: EmailTemplate = {
-    to,
-    subject,
-    text,
-    html,
-  };
+  if (!email || !mensagem) {
+    return res.status(422).send(errors.invalidDataError);
+  }
 
   try {
-    await EmailService.sendEmail(msg);
-    res.status(200).send({ data: 'Email sent' });
+    await EmailService.sendEmail({
+      email,
+      mensagem,
+    });
+    return res
+      .status(200)
+      .send({ id: uuid(), email: email, mensagem: mensagem });
   } catch (err) {
-    res.status(500).send({ error: err });
+    return res.status(500).send(errors.serverError);
   }
 };
