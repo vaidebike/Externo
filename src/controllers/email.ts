@@ -18,7 +18,7 @@ export const sendEmail: RequestHandler = async (req, res) => {
     });
     return res
       .status(200)
-      .send({ id: uuid(), email: email, mensagem: mensagem });
+      .json({ id: uuid(), email: email, mensagem: mensagem });
   } catch (err) {
     return res.status(500).send(errors.serverError);
   }
