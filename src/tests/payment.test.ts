@@ -2,7 +2,7 @@ import request from 'supertest';
 import app from '../app';
 import { verifyPaymentDetails } from '../services/payment';
 
-describe('verifyPaymentDetails function', () => {
+describe('/validaCartaoDeCredito', () => {
   const validCard = {
     nomeTitular: 'JOHN DOE',
     numero: '5555555555554444',
