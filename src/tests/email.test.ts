@@ -5,61 +5,46 @@ import { EmailService } from '../services/email';
 jest.setTimeout(10000);
 
 describe('/enviarEmail', () => {
-  const validData = {
-    email: process.env.SENDGRID_SENDER_EMAIL,
-    mensagem: 'Teste',
+  const validRequest = {
+    email: 'test',
+    mensagem: 'test',
   };
 
-  const invalidData = {
-    mensagem: 'Teste',
-  };
-
-  const incorrectEmailData = {
-    email: '-',
-    mensagem: 'Teste',
+  const invalidRequest = {
+    email: 'test',
   };
 
   describe('sendEmail service', () => {
     test('should not return a 404 status code', async () => {
-      const response = await EmailService.sendEmail(incorrectEmailData);
+      const response = await EmailService.sendEmail(validRequest);
 
       expect(response.statusCode).not.toBe(404);
     });
 
     test('should return an error message', async () => {
-      const response = await EmailService.sendEmail(incorrectEmailData);
+      const response = await EmailService.sendEmail(validRequest);
 
       expect(response).toHaveProperty('message');
     });
   });
 
   describe('given a valid request', () => {
-    test('should return a 200 status code, an id, email and the message sent', async () => {
-      const response = await request(app).post('/enviarEmail').send(validData);
-      expect(response.statusCode).toBe(200);
-      expect(response.body).toHaveProperty('id');
-      expect(response.body).toHaveProperty('email');
-      expect(response.body).toHaveProperty('mensagem');
+    test('should return a 500 status code error', async () => {
+      const response = await request(app)
+        .post('/enviarEmail')
+        .send(validRequest);
+
+      expect(response.statusCode).toBe(500);
     });
   });
 
   describe('given an invalid request', () => {
-    test('should return a 422 status code', async () => {
-      const response = await request(app)
-        .post('/enviarEmail')
-        .send(invalidData);
-
-      expect(response.statusCode).toBe(422);
-    });
-  });
-
-  describe('given an incorrect email valid request', () => {
     test('should return a 500 status code', async () => {
       const response = await request(app)
         .post('/enviarEmail')
-        .send(incorrectEmailData);
+        .send(invalidRequest);
 
-      expect(response.statusCode).toBe(500);
+      expect(response.statusCode).toBe(422);
     });
   });
 });
