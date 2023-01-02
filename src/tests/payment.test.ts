@@ -1,3 +1,5 @@
+import request from 'supertest';
+import app from '../app';
 import { verifyPaymentDetails } from '../services/payment';
 
 describe('verifyPaymentDetails function', () => {
@@ -36,17 +38,40 @@ describe('verifyPaymentDetails function', () => {
     cvv: '000',
   };
 
-  test('should return true to a valid card', () => {
-    const isValid = verifyPaymentDetails(validCard);
+  describe('given a valid card', () => {
+    test('should return true to a valid card', () => {
+      const isValid = verifyPaymentDetails(validCard);
 
-    expect(isValid).toBe(true);
+      expect(isValid).toBe(true);
+    });
+
+    test('should return a 200 status code', async () => {
+      const response = await request(app)
+        .post('/validaCartaoDeCredito')
+        .send(validCard);
+
+      expect(response.statusCode).toBe(200);
+    });
   });
 
-  test('should return false to an invalid card', () => {
-    const isValid = [invalidName, invalidNumber, invalidDate, invalidCvv].every(
-      (card) => !verifyPaymentDetails(card)
-    );
+  describe('given an invalid card', () => {
+    test('should return false to an invalid card', () => {
+      const isValid = [
+        invalidName,
+        invalidNumber,
+        invalidDate,
+        invalidCvv,
+      ].every((card) => !verifyPaymentDetails(card));
 
-    expect(isValid).toBe(false);
+      expect(isValid).toBe(false);
+    });
+
+    test('should return a 400 status code', async () => {
+      const response = await request(app)
+        .post('/validaCartaoDeCredito')
+        .send(invalidName);
+
+      expect(response.statusCode).toBe(422);
+    });
   });
 });

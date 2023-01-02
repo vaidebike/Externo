@@ -11,15 +11,14 @@ export const sendEmail: RequestHandler = async (req, res) => {
     return res.status(422).send(errors.invalidDataError);
   }
 
-  try {
-    await EmailService.sendEmail({
-      email,
-      mensagem,
-    });
-    return res
-      .status(200)
-      .json({ id: uuid(), email: email, mensagem: mensagem });
-  } catch (err) {
+  const sgRes = await EmailService.sendEmail({
+    email,
+    mensagem,
+  });
+
+  if (sgRes.code >= 400) {
     return res.status(500).send(errors.serverError);
   }
+
+  return res.status(200).json({ id: uuid(), email: email, mensagem: mensagem });
 };

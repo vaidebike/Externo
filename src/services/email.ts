@@ -10,7 +10,7 @@ export type EmailTemplate = {
 };
 
 const sendEmail = async ({ email, mensagem }: EmailTemplate) => {
-  sgMail
+  const res = await sgMail
     .send({
       from: SENDER,
       to: email,
@@ -20,6 +20,8 @@ const sendEmail = async ({ email, mensagem }: EmailTemplate) => {
     })
     .then((res) => res)
     .catch((err) => err);
+
+  return res;
 };
 
 export const EmailService = {
