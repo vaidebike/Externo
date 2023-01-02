@@ -54,7 +54,7 @@ describe('/enviarEmail', () => {
   });
 
   describe('given an incorrect email valid request', () => {
-    test('should return a 500 status code, an id, email and the message sent', async () => {
+    test('should return a 500 status code', async () => {
       const response = await request(app)
         .post('/enviarEmail')
         .send(incorrectEmailData);
