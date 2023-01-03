@@ -7,6 +7,8 @@ import { errors } from '../views/errors/error';
 export const sendEmail: RequestHandler = async (req, res) => {
   const { email, mensagem } = req.body;
 
+  console.log('test');
+
   if (!email || !mensagem) {
     return res.status(422).send(errors.invalidDataError);
   }
