@@ -1,13 +1,11 @@
 import { RequestHandler } from 'express';
 import { v4 as uuid } from 'uuid';
 
-import { EmailService } from '../services/email.service';
-import { errors } from '../views/errors/error';
+import { EmailService } from '@services/email.service';
+import { errors } from '@views/errors/error';
 
 export const sendEmail: RequestHandler = async (req, res) => {
   const { email, mensagem } = req.body;
-
-  console.log('test');
 
   if (!email || !mensagem) {
     return res.status(422).send(errors.invalidDataError);
@@ -18,7 +16,7 @@ export const sendEmail: RequestHandler = async (req, res) => {
     mensagem,
   });
 
-  if (sgRes.code >= 400) {
+  if (sgRes.statusCode >= 400) {
     return res.status(500).send(errors.serverError);
   }
 

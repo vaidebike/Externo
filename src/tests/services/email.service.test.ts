@@ -1,50 +1,33 @@
-import request from 'supertest';
-import app from '../../app';
+import sgMail from '@sendgrid/mail';
 import { EmailService } from '../../services/email.service';
 
-jest.setTimeout(10000);
+jest.mock('@sendgrid/mail');
+const sgMailMock = jest.mocked(sgMail);
 
-describe('/enviarEmail', () => {
-  const validRequest = {
-    email: 'test',
-    mensagem: 'test',
-  };
-
-  const invalidRequest = {
-    email: 'test',
-  };
-
+describe('Email Service', () => {
   describe('sendEmail service', () => {
-    test('should not return a 404 status code', async () => {
-      const response = await EmailService.sendEmail(validRequest);
+    jest.mock('@sendgrid/mail');
 
-      expect(response.statusCode).not.toBe(404);
+    beforeEach(() => {
+      jest.resetAllMocks();
     });
 
-    test('should return an error message', async () => {
-      const response = await EmailService.sendEmail(validRequest);
+    it('should return a Client Response Object', async () => {
+      sgMailMock.send.mockResolvedValue([
+        {
+          statusCode: 202,
+          body: {},
+          headers: {},
+        },
+        {},
+      ]);
 
-      expect(response).toHaveProperty('message');
-    });
-  });
+      const res = await EmailService.sendEmail({
+        email: 'test@email.com',
+        mensagem: 'test message',
+      });
 
-  describe('given a valid request', () => {
-    test('should return a 500 status code error', async () => {
-      const response = await request(app)
-        .post('/enviarEmail')
-        .send(validRequest);
-
-      expect(response.statusCode).toBe(500);
-    });
-  });
-
-  describe('given an invalid request', () => {
-    test('should return a 500 status code', async () => {
-      const response = await request(app)
-        .post('/enviarEmail')
-        .send(invalidRequest);
-
-      expect(response.statusCode).toBe(422);
+      expect(res.statusCode).toBe(202);
     });
   });
 });
