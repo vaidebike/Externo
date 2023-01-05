@@ -9,6 +9,7 @@
     "outDir": "dist",
     "baseUrl": "./src",
     "resolveJsonModule": true,
+    "strictNullChecks": true,
     "paths": {
       "@controllers/*": ["controllers/*"],
       "@services/*": ["services/*"],

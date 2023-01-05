@@ -1,8 +1,8 @@
 import sgMail from '@sendgrid/mail';
 
-sgMail.setApiKey(process.env.SENDGRID_API_KEY);
+sgMail.setApiKey(process.env.SENDGRID_API_KEY || 'SG.0');
 
-const SENDER = process.env.SENDGRID_SENDER_EMAIL;
+const SENDER = process.env.SENDGRID_SENDER_EMAIL || '';
 
 export type EmailTemplate = {
   email: string;

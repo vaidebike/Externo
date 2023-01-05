@@ -1,6 +1,5 @@
-import { Charge, Prisma, PrismaClient } from '@prisma/client';
-
-const prisma = new PrismaClient();
+import { Charge, Prisma } from '@prisma/client';
+import prisma from 'prisma.client';
 
 const createCharge = async ({
   ciclista,
@@ -16,7 +15,7 @@ const createCharge = async ({
   return newCharge;
 };
 
-const getChargeById = async (id: string): Promise<Charge> => {
+const getChargeById = async (id: string): Promise<Charge | null> => {
   const charge = await prisma.charge.findUnique({
     where: {
       id,
