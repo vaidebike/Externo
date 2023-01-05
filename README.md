@@ -2,7 +2,7 @@
 
 ## SonarCloud Stats
 
-<div style="width:100%;display:flex;gap:1rem;">
+<div style="width:700px;display:flex;gap:1rem;">
 
 [![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=vaidebike_Externo&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=vaidebike_Externo)
 
@@ -16,7 +16,7 @@
 
 </div>
 
-<div style="width:100%;display:flex;gap:1rem;">
+<div style="width:700px;display:flex;gap:1rem;">
 
 [![Lines of Code](https://sonarcloud.io/api/project_badges/measure?project=vaidebike_Externo&metric=ncloc)](https://sonarcloud.io/summary/new_code?id=vaidebike_Externo)
 
