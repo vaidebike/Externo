@@ -1,6 +1,6 @@
 import request from 'supertest';
-import app from '../app';
-import { EmailService } from '../services/email';
+import app from '../../app';
+import { EmailService } from '../../services/email.service';
 
 jest.setTimeout(10000);
 

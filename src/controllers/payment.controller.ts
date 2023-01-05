@@ -1,6 +1,7 @@
 import { RequestHandler } from 'express';
-import { PaymentService } from '../services/payment';
-import { errors } from '../views/errors/error';
+
+import { PaymentService } from '@services/payment.service';
+import { errors } from '@views/errors/error';
 
 export const validatePaymentDetails: RequestHandler = async (req, res) => {
   const { nomeTitular, numero, validade, cvv } = req.body;

@@ -1,7 +1,7 @@
 import { RequestHandler } from 'express';
 import { v4 as uuid } from 'uuid';
 
-import { EmailService } from '../services/email';
+import { EmailService } from '../services/email.service';
 import { errors } from '../views/errors/error';
 
 export const sendEmail: RequestHandler = async (req, res) => {

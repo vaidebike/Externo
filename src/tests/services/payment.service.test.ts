@@ -1,6 +1,6 @@
 import request from 'supertest';
-import app from '../app';
-import { verifyPaymentDetails } from '../services/payment';
+import app from '../../app';
+import { verifyPaymentDetails } from '../../services/payment.service';
 
 describe('/validaCartaoDeCredito', () => {
   const validCard = {

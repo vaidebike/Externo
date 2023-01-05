@@ -1,5 +1,5 @@
 import express from 'express';
-import { createCharge, getChargeById } from '../controllers/charge';
+import { createCharge, getChargeById } from '../controllers/charge.controller';
 
 const charges = express.Router();
 

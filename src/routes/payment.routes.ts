@@ -1,5 +1,5 @@
 import express from 'express';
-import { validatePaymentDetails } from '../controllers/payment';
+import { validatePaymentDetails } from '../controllers/payment.controller';
 
 const payments = express.Router();
 

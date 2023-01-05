@@ -2,9 +2,9 @@ import * as dotenv from 'dotenv';
 dotenv.config();
 
 import express from 'express';
-import charges from './routes/charge';
-import emails from './routes/email';
-import payments from './routes/payment';
+import charges from './routes/charge.routes';
+import emails from './routes/email.routes';
+import payments from './routes/payment.routes';
 
 const app = express();
 app.disable('x-powered-by');

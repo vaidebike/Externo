@@ -1,5 +1,5 @@
 import { RequestHandler } from 'express';
-import { ChargeService } from '../services/charge';
+import { ChargeService } from '../services/charge.service';
 import { errors } from '../views/errors/error';
 
 export const getChargeById: RequestHandler = async (req, res) => {
