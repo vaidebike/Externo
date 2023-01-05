@@ -1,5 +1,6 @@
-import { Charge, Prisma } from '@prisma/client';
-import prisma from 'prisma.client';
+import { Charge, Prisma, PrismaClient } from '@prisma/client';
+
+const prisma = new PrismaClient();
 
 const createCharge = async ({
   ciclista,

@@ -6,8 +6,6 @@ const sgMailMock = jest.mocked(sgMail);
 
 describe('Email Service', () => {
   describe('sendEmail service', () => {
-    jest.mock('@sendgrid/mail');
-
     beforeEach(() => {
       jest.resetAllMocks();
     });
