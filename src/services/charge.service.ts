@@ -48,15 +48,13 @@ const updateChargeStatus = (
   if (chargeIndex === -1) {
     return undefined;
   } else {
-    const charge = (db.charges[chargeIndex] = {
+    db.charges[chargeIndex] = {
       ...db.charges[chargeIndex],
       status,
-    });
+      horaFinalizacao: status === 'PENDENTE' ? null : new Date().toISOString(),
+    };
 
-    charge.horaFinalizacao =
-      status === 'PENDENTE' ? null : new Date().toISOString();
-
-    return charge;
+    return db.charges[chargeIndex];
   }
 };
 
