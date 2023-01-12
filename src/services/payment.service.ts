@@ -1,5 +1,5 @@
 import valid from 'card-validator';
-import { PaymentDetails } from '../types/payment';
+import { PaymentDetails } from '../models/payment';
 
 export const verifyPaymentDetails = ({
   nomeTitular,
