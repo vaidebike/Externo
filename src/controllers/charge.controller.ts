@@ -9,6 +9,12 @@ export const listCharges: RequestHandler = async (req, res) => {
   return res.status(200).send({ data: charges });
 };
 
+export const listChargeQueue: RequestHandler = async (req, res) => {
+  const charges = ChargeService.listChargeQueue();
+
+  return res.status(200).send({ data: charges });
+};
+
 export const getChargeById: RequestHandler = async (req, res) => {
   const { id } = req.params;
 
@@ -57,5 +63,19 @@ export const addToChargeQueue: RequestHandler = async (req, res) => {
     return res.status(200).send({ data: charge });
   } else {
     return res.status(422).send(errors.invalidDataError);
+  }
+};
+
+export const processChargeQueue: RequestHandler = async (req, res) => {
+  try {
+    const charges = await ChargeService.processChargeQueue();
+
+    if (charges) {
+      return res.status(200).send({ data: charges });
+    } else {
+      return res.status(422).send(errors.invalidDataError);
+    }
+  } catch (e) {
+    return res.status(500).send(errors.serverError);
   }
 };
