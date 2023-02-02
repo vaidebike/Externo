@@ -1,15 +1,12 @@
-import { Charge, ChargeStatus } from '@models/charge';
-import db from 'database/db';
+import Stripe from 'stripe';
 import { v4 } from 'uuid';
 
-import Stripe from 'stripe';
+import { Charge, ChargeStatus } from '@models/charge';
+import db from 'database/db';
 
-const paymentApi = new Stripe(
-  'sk_test_51MF8SmIHwoZkeAsBitDgXXvztTwaYDyI6RGc72c90fLdMzOyxAASoKkERnTcfCij22m9sc74ko9eF99h0VT2oyI400VTRaqZum',
-  {
-    apiVersion: '2022-11-15',
-  }
-);
+const paymentApi = new Stripe(process.env.STRIPE_API_KEY || '', {
+  apiVersion: '2022-11-15',
+});
 
 const listCharges = (): Charge[] => {
   return db.charges;
