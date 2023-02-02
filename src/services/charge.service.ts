@@ -4,9 +4,12 @@ import { v4 } from 'uuid';
 import { Charge, ChargeStatus } from '@models/charge';
 import db from 'database/db';
 
-const paymentApi = new Stripe(process.env.STRIPE_API_KEY || '', {
-  apiVersion: '2022-11-15',
-});
+const paymentApi = new Stripe(
+  'sk_test_51MF8SmIHwoZkeAsBitDgXXvztTwaYDyI6RGc72c90fLdMzOyxAASoKkERnTcfCij22m9sc74ko9eF99h0VT2oyI400VTRaqZum',
+  {
+    apiVersion: '2022-11-15',
+  }
+);
 
 const listCharges = (): Charge[] => {
   return db.charges;
@@ -81,37 +84,45 @@ const addToChargeQueue = ({
 const processChargeQueue = async (): Promise<Charge[]> => {
   let processedCharges: Charge[] = [];
 
-  for (const charge of db.chargeQueue) {
-    let updatedCharge: Charge | undefined;
+  Promise.all(
+    db.chargeQueue.map(async (charge) => {
+      const updatedCharge = await processPayment(charge);
 
-    try {
-      const { status } = await paymentApi.charges.create({
-        amount: charge.valor * 100,
-        currency: 'brl',
-        source: 'tok_visa',
-        description: charge.id,
-      });
-
-      if (status === 'pending') {
-        continue;
-      } else {
-        updatedCharge = updateChargeStatus(
-          charge.id,
-          status === 'succeeded' ? 'PAGA' : 'FALHA'
-        );
-      }
-    } catch (err) {
-      updatedCharge = updateChargeStatus(charge.id, 'FALHA');
-    }
-
-    processedCharges = [...processedCharges, updatedCharge || charge];
-  }
+      processedCharges = [...processedCharges, updatedCharge || charge];
+    })
+  );
 
   db.chargeQueue = processedCharges.filter(
     (charge) => charge.status === 'PENDENTE'
   );
 
   return processedCharges;
+};
+
+const processPayment = async (charge: Charge): Promise<Charge | undefined> => {
+  let updatedCharge: Charge | undefined;
+
+  try {
+    const { status } = await paymentApi.charges.create({
+      amount: charge.valor * 100,
+      currency: 'brl',
+      source: 'tok_visa',
+      description: charge.id,
+    });
+
+    if (status === 'pending') {
+      return charge;
+    } else {
+      updatedCharge = updateChargeStatus(
+        charge.id,
+        status === 'succeeded' ? 'PAGA' : 'FALHA'
+      );
+    }
+  } catch (err) {
+    updatedCharge = updateChargeStatus(charge.id, 'FALHA');
+  }
+
+  return updatedCharge;
 };
 
 export const ChargeService = {
@@ -122,4 +133,5 @@ export const ChargeService = {
   addToChargeQueue,
   listChargeQueue,
   processChargeQueue,
+  processPayment,
 };

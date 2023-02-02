@@ -32,6 +32,7 @@ export const createCharge: RequestHandler = async (req, res) => {
 
   if (isValidNewCharge(ciclista, valor)) {
     const charge = ChargeService.createCharge({ ciclista, valor });
+    ChargeService.processPayment(charge);
     return res.status(200).send({ data: charge });
   } else {
     return res.status(422).send(errors.invalidDataError);
